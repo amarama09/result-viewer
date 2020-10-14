@@ -1,0 +1,15 @@
+FROM node:12.14.1-alpine
+
+EXPOSE 8080
+EXPOSE 8443
+
+COPY node_modules /src/node_modules
+COPY package.json /src/package.json
+
+COPY build /src/build
+
+RUN npm install -g serve
+WORKDIR /src
+USER root
+
+CMD serve -s /src/build -p 8080
